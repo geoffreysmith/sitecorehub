@@ -14,7 +14,7 @@ They also filter per version, and images that exist in the blob:
 
 The blobs were uploaded manually (see known limitations section).
 
-## Prequisites
+## Prequisites (Local Development)
 
 ### Windows "fast ring" insider pre-release:
 
@@ -35,6 +35,7 @@ Due to the early release nature of the project, it relies on the Visual Studio [
 For local blob emulation. I created a persistent volume in `ProgramData/azurite`, running in blob only mode
 
 `mkdirk /mnt/c/programdata/azurite`
+
 `docker run -p 10000:10000 -v /mnt/c/programdata/azurite:/workspace mcr.microsoft.com/azure-storage/azurite azurite-blob --blobHost 0.0.0.0`
 
 > I highly recommend [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/) and testing the connection using the default connectionstring in the `appsettings.json`.
