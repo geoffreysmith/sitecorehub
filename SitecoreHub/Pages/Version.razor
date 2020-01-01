@@ -1,0 +1,67 @@
+﻿@page "/{SitecoreVersion}"
+
+@inject ISitecoreVersionPackageViewModelBuilder SitecoreVersionPackageViewModelBuilder
+
+
+@if (version == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+        <h2 class="card-title">Sitecore @version.First().Version</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Package</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">Installed</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var package in version)
+                {
+                <tr>
+                    <th scope="row">@package.FileName</th>
+                    <td>@package.Description</td>
+                    @if (package.Url == new Uri("about:blank"))
+                    {
+                        <td>URL missing from Sitecore source repository</td>
+                    }
+                    else
+                    {
+                        <td><a href="@package.Url">Download Directly</a></td>
+                    }
+                    @if (package.Installed)
+                    {
+                        <td class="text-center"><span class="oi oi-circle-check" style="color:green;"></span></td>
+                    }
+                    else
+                    {
+                        <td class="text-center"><span class="oi oi-circle-x" style="color:red;"></span></td>
+                    }
+                </tr>
+                }
+            </tbody>
+        </table>
+}
+
+@code {
+    [Parameter]
+    public string SitecoreVersion { get; set; }
+
+    private IList<SitecorePackageViewModel> version;
+    private IList<SitecorePackageViewModel> allVersions;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (version == null)
+        {
+            allVersions = await SitecoreVersionPackageViewModelBuilder.GetAll();
+        }
+        
+        version = allVersions.Where(x => x.Version == SitecoreVersion).ToList();
+    }
+}

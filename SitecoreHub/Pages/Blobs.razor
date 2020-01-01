@@ -1,0 +1,42 @@
+﻿@page "/blobs"
+
+@inject IBlobContainerViewModelBuilder BlobContainerViewModelBuilder
+
+
+@if (blobs == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+        <h2 class="card-title">Blobs in "sitecore" Container</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">File Name</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Last Modified</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var blob in blobs)
+                {
+                <tr>
+                    <th scope="row">@blob.FileName</th>
+                    <td>@blob.Size MB</td>
+                    <td>@blob.LastModified</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+}
+
+@code {
+    private IList<BlobStorageFile> blobs;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        blobs = await BlobContainerViewModelBuilder.GetAll();
+    }
+}

@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:18962",
-      "sslPort": 44317
+      "applicationUrl": "http://localhost:20572",
+      "sslPort": 44308
     }
   },
   "profiles": {
@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Biztalk": {
+    "Assets": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

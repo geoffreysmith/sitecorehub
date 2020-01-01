@@ -1,0 +1,51 @@
+﻿@inject ISitecoreVersionPackageViewModelBuilder SitecoreVersionPackageViewModelBuilder
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">Asset Manaagement</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+            @foreach (var version in versions)
+            {
+                var link = version;
+        <NavLink class="nav-link" href="@version" Match="NavLinkMatch.All">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                 width="50" height="50"
+                 viewBox="0 0 172 172"
+                 style=" fill:#000000;" class="oi">
+            <g transform=""><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M86,6.88c-43.6552,0 -79.12,35.4648 -79.12,79.12c0,43.65849 35.46498,79.12 79.12,79.12c43.6552,0 79.12,-35.4648 79.12,-79.12c0,-43.6552 -35.4648,-79.12 -79.12,-79.12zM86,13.76c39.9368,0 72.24,32.3032 72.24,72.24c0,39.9368 -32.3032,72.24 -72.24,72.24c-39.93698,0 -72.24,-32.29961 -72.24,-72.24c0,-39.9368 32.3032,-72.24 72.24,-72.24zM86,27.52c-32.3979,0 -58.48,26.0821 -58.48,58.48c0,10.82996 2.75145,20.95133 7.64594,29.66328l-0.01344,0.00672c0,0 0.03877,0.04514 0.04031,0.04703c9.67551,17.17962 27.85318,28.76297 50.80719,28.76297c34.60975,0 58.48,-26.25789 58.48,-58.48c0,-32.3979 -26.0821,-58.48 -58.48,-58.48zM86,34.4c12.08575,0 23.10682,4.08669 31.8536,10.91797l-18.9536,15.695l1.22281,2.44563c0,0 9.60145,18.28398 -6.44328,37.53765c-7.49287,8.99144 -20.84257,10.77611 -32.81438,9.95047c-11.97181,-0.82564 -21.93672,-4.13203 -21.93672,-4.13203l-0.26203,0.77938c-2.75555,-6.54612 -4.2664,-13.83477 -4.2664,-21.59406c0,-28.72402 22.87598,-51.6 51.6,-51.6zM123.04719,49.9539c5.95795,6.12519 10.35919,13.75017 12.67828,22.2861h-18.7386l-0.02687,3.41313c0,0 -0.4452,25.86619 -19.22235,38.4514c-7.53222,5.04756 -19.30916,5.41362 -30.37547,3.86328c11.33388,-0.17502 23.57183,-2.93231 31.59828,-12.56406c15.26275,-18.31531 10.42337,-36.49124 8.28422,-42.36844zM123.5914,79.12h13.51141c0.29473,2.2543 0.49719,4.53877 0.49719,6.88c0,8.14179 -1.67259,15.75941 -4.6964,22.54813l-10.21922,-6.81281l-1.83422,3.19812c0,0 -12.77682,22.34656 -38.29015,22.34656c-8.79388,0 -16.03916,-1.45115 -21.93672,-3.46015c13.21623,2.62125 29.31257,3.79022 40.94406,-4.00438c18.31372,-12.27461 21.44578,-33.28536 22.02406,-40.69547zM124.74703,111.37672l4.945,3.29891c-8.68222,13.89762 -24.03421,22.92437 -43.69203,22.92437c-10.66182,0 -20.02529,-2.69968 -27.78203,-7.3436c6.62278,2.27537 14.69819,3.9036 24.34203,3.9036c23.97631,0 37.68578,-16.38423 42.18703,-22.78328z"></path></g></g></g></svg>@version
+        </NavLink>
+            }
+            <NavLink class="nav-link" href="/blobs" Match="NavLinkMatch.All">
+                <span class="oi oi-folder" aria-hidden="true">
+                </span> Blob Explorer
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private IList<string> versions;
+
+    protected override void OnInitialized()
+    {
+        versions = SitecoreVersionPackageViewModelBuilder.GetSitecoreVersions();
+    }
+}
