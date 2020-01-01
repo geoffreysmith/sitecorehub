@@ -17,7 +17,6 @@ namespace SitecoreHub.Repositories
         public SitecorePackageMetadataRetriever(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
-
         }
 
         // Most authoritative list of Sitecore package URLs publically available.
