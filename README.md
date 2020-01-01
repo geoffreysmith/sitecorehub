@@ -6,7 +6,7 @@
 
 As of right now, the code will load all 9.x asset files and display the depedencies per version, along with indicating if they exist in the blob container:
 
-![Home](/assets/home_image.png)
+![Home](/assets/home_view.png)
 
 They also filter per version, and images that exist in the blob:
 
@@ -18,9 +18,9 @@ The blobs were uploaded manually (see known limitations section).
 
 ### Windows "fast ring" insider pre-release:
 
-Major|Minor|Build|Revision|
----|---|---|---|---|
-10|0|19536|0|
+| Major | Minor | Build | Revision |
+|-------|-------|-------|----------|
+|10     |0      |19536  |0         |
 
 ### [WSL2](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install)
 While cross-platform, documentation assumes any depedencies (such as Azurite) are installed and accessd via Linux, e.g., 0.0.0.0/localhost resolves correctly and Linux style directory structure. The project itself is intentionally agnostic and cross-platform. Ironically, as a tool for a build process, the build process for the build process tool works well given the prerequisites and can be improved upon later.
