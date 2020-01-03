@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Assets/Assets.csproj", "Assets/"]
-RUN dotnet restore "Assets/Assets.csproj"
+COPY ["SitecoreHub/SitecoreHub.csproj", "SitecoreHub/"]
+RUN dotnet restore "SitecoreHub/SitecoreHub.csproj"
 COPY . .
-WORKDIR "/src/Assets"
-RUN dotnet build "Assets.csproj" -c Release -o /app/build
+WORKDIR "/src/SitecoreHub"
+RUN dotnet build "SitecoreHub.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Assets.csproj" -c Release -o /app/publish
+RUN dotnet publish "SitecoreHub.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Assets.dll"]
+ENTRYPOINT ["dotnet", "SitecoreHub.dll"]
